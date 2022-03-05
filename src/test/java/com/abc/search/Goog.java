@@ -16,6 +16,7 @@ public class Goog extends BaseTest{
 	@Test(groups = {"SmokeTest", "Regression","Search"})
 	public void t() throws InterruptedException {
 		homePage = new HomeActions(driver);
+		System.out.println("Remote");
 
 		SignInActions signInPage = homePage.clickOnSignIn();
 		CreateAccountActions createAccount = signInPage.selectMySelfOptionToCreateAccount();

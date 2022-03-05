@@ -1,12 +1,18 @@
 package com.abc.core;
 
 import java.io.IOException;
+import java.net.URL;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PDriver {
 	WebDriver driver = null;
@@ -18,22 +24,39 @@ public class PDriver {
 		
 		String browserName = null;
 		String browser = System.getProperty("browser");
-		
+		String remote = System.getProperty("remote");
+
 		if(browser != null) {
 			browserName = browser;
 		}else {
 			browserName = configProperty.getKeyValue("browser");
 		}
 		
-		System.out.println(browserName);
-		if(browserName.equalsIgnoreCase("chrome")) {
-			System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") +"\\driver\\chrome\\chromedriver.exe");
-			driver = new ChromeDriver();
-		}else if (browserName.equalsIgnoreCase("IE")) {
-			System.setProperty("webdriver.ie.driver",System.getProperty("user.dir") +"\\driver\\IE\\IEDriverServer.exe");
-			driver = new InternetExplorerDriver();
-		}else {
+		if(remote != null) {
 			
+		}else {
+			remote = "false";
+		}
+		
+	
+		if(remote.equals("true")) {
+			System.out.println("Remote");
+			DesiredCapabilities capabilities = new DesiredCapabilities().chrome();
+			capabilities.setVersion("99");
+			driver =new RemoteWebDriver(new URL("http://192.168.192.1:4444/wd/hub"), capabilities);
+		}else {
+			System.out.println("Local");
+
+			System.out.println(browserName);
+			if(browserName.equalsIgnoreCase("chrome")) {
+				System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") +"\\driver\\chrome\\chromedriver.exe");
+				driver = new ChromeDriver();
+			}else if (browserName.equalsIgnoreCase("IE")) {
+				System.setProperty("webdriver.ie.driver",System.getProperty("user.dir") +"\\driver\\IE\\IEDriverServer.exe");
+				driver = new InternetExplorerDriver();
+			}else {
+				
+			}
 		}
 		Thread.sleep(5000);
 		setDimension();
@@ -72,7 +95,9 @@ public class PDriver {
 	
 	public void click(WebElement element) {
 		System.out.println("Click");
-		element.click();
+		if(isDisplayed(element)) {
+			element.click();
+		}
 	}
 	
 	public void switchToDefaultContent(WebDriver driver) {
@@ -81,6 +106,11 @@ public class PDriver {
 	
 	public void switchToframeByWebElement(WebDriver driver, WebElement element) {
 		driver.switchTo().frame(element);
+	}
+	
+	public boolean isDisplayed(WebElement element) {
+		return new WebDriverWait(driver,10).until(ExpectedConditions.elementToBeClickable(element)).isDisplayed();
+
 	}
 
 }
