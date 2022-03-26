@@ -75,12 +75,15 @@ public class Reg {
 		String name = driver.findElement(By.xpath("//h1")).getText();
 		
 		Assert.assertEquals(name.trim(), "Hi, "+fName+" "+mName+" "+lName);
+		Thread.sleep(5000);
 		
 		
 		System.out.println(" ============ Log in =============");
 		driver.get("https://www.kamolini.com/");
+		Thread.sleep(1000);
 		driver.findElement(By.xpath("//a[text()=' Login']")).click();
 		
+		Thread.sleep(1000);
 		driver.findElement(By.name("username")).sendKeys(userEmail);
 		driver.findElement(By.id("next")).click();
 		Thread.sleep(5000);
