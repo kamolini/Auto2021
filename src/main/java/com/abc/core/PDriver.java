@@ -42,11 +42,10 @@ public class PDriver {
 		if(remote.equals("true")) {
 			System.out.println("Remote");
 			DesiredCapabilities capabilities = new DesiredCapabilities().chrome();
-			capabilities.setVersion("99");
+			//capabilities.setVersion("99");
 			driver =new RemoteWebDriver(new URL("http://192.168.192.1:4444/wd/hub"), capabilities);
 		}else {
 			System.out.println("Local");
-
 			System.out.println(browserName);
 			if(browserName.equalsIgnoreCase("chrome")) {
 				System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") +"\\driver\\chrome\\chromedriver.exe");
