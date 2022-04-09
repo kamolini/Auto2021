@@ -7,6 +7,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import testUtil.ApiUtil;
+
 import static io.restassured.RestAssured.*;
 
 public class Reg {
@@ -61,11 +64,9 @@ public class Reg {
 		signup_Button.click();
 		Thread.sleep(10000);
 		
-		String URI = "https://api.kamolini.com/api/v1/email/"+userEmail;
 		
-		String otp =  given().get(URI).asString();
 		
-		System.out.println("otp - "+otp);
+		String otp = ApiUtil.getOtp(userEmail);
 		
 		driver.findElement(By.id("otp")).sendKeys(otp);
 		driver.findElement(By.xpath("//*[text()='Verify']")).click();
@@ -88,7 +89,7 @@ public class Reg {
 		driver.findElement(By.id("next")).click();
 		Thread.sleep(5000);
 		
-		otp =  given().get(URI).body().asString();
+		otp = ApiUtil.getOtp(userEmail);
 
 		System.out.println("otp - "+otp);
 		
