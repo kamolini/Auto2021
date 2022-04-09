@@ -12,10 +12,10 @@ public class CreateAccountActions extends CreateAccountPageElements{
 	}
 	
 	
-	public void fillTextInFirstName() {
+	public void fillTextInFirstName(String firstName) {
 		
 		//firstName_TextBox.sendKeys("Test");
 		
-		fillText(firstName_TextBox, "Test");
+		fillText(firstName_TextBox, firstName);
 	}
 }

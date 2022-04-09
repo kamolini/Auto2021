@@ -1,10 +1,14 @@
 package com.abc.core;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-import org.openqa.selenium.By;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,8 +18,10 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.abc.util.Util;
+
 public class PDriver {
-	WebDriver driver = null;
+	static WebDriver driver = null;
 	
 	public WebDriver createDriver() throws IOException, InterruptedException {
 		
@@ -111,5 +117,42 @@ public class PDriver {
 		return new WebDriverWait(driver,10).until(ExpectedConditions.elementToBeClickable(element)).isDisplayed();
 
 	}
+	
+	public static void takesScreenshot() {
+
+		File file =  ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		File dFile = new File(System.getProperty("user.dir")+"/SS/"+Util.getRandomString()+".png");
+		try {
+			FileUtils.copyFile(file, dFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void addGreenBorder(WebElement element) {
+		JavascriptExecutor executor = ((JavascriptExecutor)driver);
+		executor.executeScript("arguments[0].setAttribute('style', 'border : 2px solid green');", element);
+	}
+	public void removeBorder(WebElement element) {
+		JavascriptExecutor executor = ((JavascriptExecutor)driver);
+		executor.executeScript("arguments[0].setAttribute('style', '');", element);
+	}
+	
+	public void scrollPageByPx(int px) {
+		scrollPageByPx(0,px);
+	}
+	
+	public void scrollPageByPx(int fromPX, int toPX) {
+		JavascriptExecutor executor = ((JavascriptExecutor)driver);
+		executor.executeScript("scroll("+fromPX+","+toPX+")");
+	}
+	
+	public void scrolltoView(WebElement element) {
+		JavascriptExecutor executor = ((JavascriptExecutor)driver);
+		executor.executeScript("arguments[0].scrollIntoView(true)",element);
+	}
+	
+	
 
 }

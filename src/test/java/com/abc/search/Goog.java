@@ -20,6 +20,7 @@ public class Goog extends BaseTest{
 
 		SignInActions signInPage = homePage.clickOnSignIn();
 		CreateAccountActions createAccount = signInPage.selectMySelfOptionToCreateAccount();
-		createAccount.fillTextInFirstName();
+		createAccount.fillTextInFirstName("Test");
 	}
+	
 }

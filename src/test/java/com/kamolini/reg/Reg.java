@@ -63,7 +63,7 @@ public class Reg {
 		
 		String URI = "https://api.kamolini.com/api/v1/email/"+userEmail;
 		
-		String otp =  given().get(URI).body().asString();
+		String otp =  given().get(URI).asString();
 		
 		System.out.println("otp - "+otp);
 		
@@ -89,7 +89,6 @@ public class Reg {
 		Thread.sleep(5000);
 		
 		otp =  given().get(URI).body().asString();
-		
 
 		System.out.println("otp - "+otp);
 		
@@ -102,12 +101,4 @@ public class Reg {
 	}
 
 }
-
-
-
-
-
-
-
-
 
