@@ -27,18 +27,18 @@ public class DB_Test {
 			
 			
 			Statement statement =  connection.createStatement();
-			ResultSet resultSet =  statement.executeQuery("SELECT FName FROM kamolini_kamol.customer WHERE id =118");
+			ResultSet resultSet =  statement.executeQuery("SELECT * FROM kamolini_kamol.customer WHERE id =121");
 			
 			while (resultSet.next()) {
-				//System.out.println(resultSet.getInt(1)+"	"+resultSet.getString(2)+"	"+resultSet.getString(3)+"	"+resultSet.getString(4)+"	"+resultSet.getString(5)+"	"+resultSet.getString(6));
-				System.out.println(resultSet.getString(1));
+				System.out.println(resultSet.getInt(1)+"	"+resultSet.getString(2)+"	"+resultSet.getString(3)+"	"+resultSet.getString(4)+"	"+resultSet.getString(5)+"	"+resultSet.getString(6));
+				//System.out.println(resultSet.getString(1));
 			}
 	
 			System.out.println("==================");
 	
 			PreparedStatement preparedStatement = connection.prepareStatement("SELECT FName FROM kamolini_kamol.customer WHERE id =? and FName=?");
 			
-			preparedStatement.setInt(1, 118);
+			preparedStatement.setInt(1, 121);
 			preparedStatement.setString(2, "mahesh");
 			 
 			resultSet =  preparedStatement.executeQuery();

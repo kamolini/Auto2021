@@ -16,6 +16,7 @@ public class ApiUtil {
 	
 	public static Response createAccount(String firstName, String mName, String lName, String email, String phone) {
 		String URI = "https://api.kamolini.com/api/v1/customer/createCustomer";
+		
 		RequestSpecification requestSpecification = given();
 		
 		requestSpecification = requestSpecification.header("Content-Type","application/json");

@@ -1,4 +1,4 @@
-package com.kamolini.reg;
+package com.abc.api;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -12,8 +12,10 @@ public class CreateAccountApi {
 	
 	@Test
 	public void createAccount() {
+		
 		String email = Util.getRandomEmail();
-		Response response= ApiUtil.createAccount("Kamol", "babu", "Test", email, "6562521212");
+		
+		Response response = ApiUtil.createAccount("Kamol", "babu", "Test", email, "6562521212");
 		
 		System.out.println(response.getBody().asString());
 
