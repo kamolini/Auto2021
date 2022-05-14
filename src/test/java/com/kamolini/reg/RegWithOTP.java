@@ -12,7 +12,7 @@ import testUtil.ApiUtil;
 
 import static io.restassured.RestAssured.*;
 
-public class Reg {
+public class RegWithOTP {
 	
 	@Test
 	public void rTest() throws InterruptedException {
